@@ -10,6 +10,8 @@ export const universities: University[] = [
         slug: "bisu-balilihan",
         location: "Magsija, Balilihan, Bohol",
         studentOnline: studentCount("bisu-balilihan"),
+        lat: 9.7447,
+        lng: 123.96216
     },
     {
         id: "up-cebu",
@@ -17,5 +19,7 @@ export const universities: University[] = [
         slug: "up-cebu",
         location: "Banilad, Cebu City, Cebu",
         studentOnline: studentCount("up-cebu"),
+        lat: 10.338516,
+        lng: 123.912173
     },
 ];

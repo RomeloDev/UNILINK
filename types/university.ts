@@ -4,4 +4,6 @@ export type University = {
     slug: string
     location: string
     studentOnline: number
+    lat: number
+    lng: number
 };
