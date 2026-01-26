@@ -21,7 +21,7 @@ export default function UniversityMarker({ university }: Props) {
                 <div className="space-y-1">
                     <p className="font-semibold">{university.name}</p>
                     <p className="text-sm">{university.studentOnline} students online</p>
-                    <Link href={`university/${university.slug}`} className="text-blue-600 underline">
+                    <Link href={`/university/${university.slug}`} className="text-blue-600 underline">
                         Enter Lobby
                     </Link>
                 </div>

@@ -3,10 +3,12 @@
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import UniversityMarker from "./UniversityMarker";
-import { universities } from "@/data/universities";
 import type { University } from "@/types/university";
 import { useSearchParams, useRouter } from "next/navigation";
 
+type Props = {
+    universities: University[];
+}
 
 const MapStateSync = () => {
     const router = useRouter();
@@ -30,7 +32,7 @@ const MapStateSync = () => {
     return null;
 }
 
-export default function MapView() {
+export default function MapView({ universities }: Props) {
     const search = useSearchParams();
     const lat = Number(search.get("lat")) || 12.8797;
     const lng = Number(search.get("lng")) || 121.774;

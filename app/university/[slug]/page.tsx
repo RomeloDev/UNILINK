@@ -15,11 +15,10 @@ export default async function UniversityLobby({ params }: PageProps) {
   const university = universityFind ? universityFind.name : "Unknown University";
 
   return (
-    <main className="space-y-4 p-6">
-      <BackButton />
+    <>
       <h1 className="text-2xl font-bold mt-4">University Lobby</h1>
       <h2 className="text-lg font-semibold">{university}</h2>
       <StudentListWithFilter students={campusStudents} />
-    </main>
+    </>
   );
 }
