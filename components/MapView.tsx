@@ -5,6 +5,9 @@ import "leaflet/dist/leaflet.css";
 import UniversityMarker from "./UniversityMarker";
 import type { University } from "@/types/university";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useMap } from "react-leaflet";
+import { universities } from "@/data/universities";
 
 type Props = {
     universities: University[];
@@ -32,6 +35,23 @@ const MapStateSync = () => {
     return null;
 }
 
+const FitToMarkers = ({universities}: { universities: University[]}) =>
+{
+    const map = useMap();
+    const search = useSearchParams();
+
+    useEffect(() => {
+        const hasUrlState = search.get("lat") && search.get("lng") && search.get("zoom");
+
+        if (hasUrlState || universities.length === 0) return;
+
+        const bounds = universities.map((u) => [u.lat, u.lng] as [number, number]);
+        map.fitBounds(bounds, {padding: [40, 40]});
+    }, [map, universities, search]);
+
+    return null;
+}
+
 export default function MapView({ universities }: Props) {
     const search = useSearchParams();
     const lat = Number(search.get("lat")) || 12.8797;
@@ -45,6 +65,7 @@ export default function MapView({ universities }: Props) {
                     attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <FitToMarkers universities={universities} />
                 <MapStateSync />
                 {universities.map((u) => (
                     <UniversityMarker key={u.id} university={u} />
