@@ -1,170 +1,230 @@
-# 🚀 UniLink v1 — Interactive MVP (Map + Backend-Ready)
+# 🚀 UniLink v1.5 — Auth + Persistence Learning Phase
 
 > **Purpose:**
-> UniLink v1 builds on v0 by introducing **real-world UI complexity** (maps, client-only libraries, progressive data modeling) while still prioritizing **Next.js learning over product completion**.
+> UniLink v1.5 introduces the **first real backend layer** while preserving the project’s learning-first philosophy.
+> The goal is to learn how frontend apps connect to real data — not to build a production social network.
 
 ---
 
-## 🧠 Primary Goals (v1)
+## 🧠 Primary Goals (v1.5)
 
-* Learn how to integrate **client-only libraries** in Next.js
-* Understand **SSR vs CSR boundaries** clearly
-* Prepare data models for backend integration
-* Improve UX without introducing backend complexity too early
+* Learn Firebase Authentication basics
+* Connect frontend UI to persistent data
+* Understand client ↔ backend data flow
+* Practice safe incremental architecture
+* Keep complexity controlled and intentional
 
 ---
 
 ## 🎯 Non-Goals (Still Out of Scope)
 
-* ❌ Full production auth flows
-* ❌ Chat / messaging
-* ❌ Monetization
+* ❌ Full social system
+* ❌ Messaging/chat
+* ❌ Complex moderation
+* ❌ Payments/monetization
+* ❌ Enterprise architecture
 * ❌ Mobile app
-* ❌ Large-scale moderation system
+
+v1.5 is about **learning persistence**, not scaling.
 
 ---
 
-## 🧩 Project Concept (v1)
+## 🧩 Project Concept (v1.5)
 
-UniLink v1 enhances the homepage experience by introducing a **map-based university selector**, while keeping the university lobby and student discovery flow intact.
+UniLink becomes a **real user-aware app**:
 
----
+Users can:
 
-## 🗺️ Core Features (UniLink v1)
+* Create an account
+* Log in
+* Save their intent (study/social)
+* Edit a basic profile
 
-### 1. Homepage — Interactive Philippines Map
+Everything else still uses mock or hybrid data.
 
-**Replaces:** simple university list
-**Enhances:** discovery experience
-
-Features:
-
-* Interactive map of the Philippines
-* University pins rendered from mock data
-* Clicking a pin navigates to `/university/[slug]`
-* Each pin shows:
-
-  * University name
-  * Students online (mock)
-
-**Technical Notes:**
-
-* Map rendered as a **Client Component**
-* Uses OpenStreetMap via `react-leaflet`
-* University coordinates stored in mock data
-
-**Route:**
-
-```
-/
-```
+This is a **controlled bridge** between prototype and real app.
 
 ---
 
-### 2. University Lobby (Same as v0, Refined)
+## 🔐 Core Features (UniLink v1.5)
 
-* Dynamic routing remains unchanged
-* Lobby continues to:
+### 1. Firebase Authentication
 
-  * Render students
-  * Support intent filtering
-* Minor UI refinements allowed
+Users can:
+
+* Sign up (email/password)
+* Log in
+* Log out
+* Persist session
+
+Auth is intentionally simple.
+
+No:
+
+* OAuth complexity
+* Password recovery flows
+* Security hardening yet
+
+Goal = understand auth pipeline.
 
 ---
 
-### 3. Enhanced Mock Data Model
+### 2. Persistent User Intent
 
-Universities now include:
+The intent toggle is no longer temporary.
 
-* `lat`
-* `lng`
-* (future-ready for backend migration)
+User intent:
 
-Students remain unchanged.
+* Saves to Firestore
+* Loads on login
+* Updates live
+
+This connects UI → database → UI loop.
+
+Critical learning moment.
 
 ---
 
-## 🧱 Technical Stack (v1)
+### 3. Basic Profile Editing
+
+Logged-in users can edit:
+
+* Display name
+* Major
+* Year
+* Intent
+
+Stored in Firestore as a user document.
+
+No avatars yet. Keep it lean.
+
+---
+
+### 4. Hybrid Data Model
+
+Universities + map:
+
+* Still mock data
+
+User profiles:
+
+* Real database
+
+This hybrid approach avoids backend overload.
+
+---
+
+## 🧱 Technical Stack (v1.5)
 
 ### Frontend
 
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript (practical, minimal)
-* **Styling:** Tailwind CSS
-* **Maps:** react-leaflet + OpenStreetMap
+* Next.js (App Router)
+* TypeScript (practical usage)
+* Tailwind CSS
+* react-leaflet
 
-### Data
+### Backend
 
-* Still **Mock Data**
-* No Firebase yet
-* Structured to mirror backend collections later
+* Firebase Authentication
+* Firebase Firestore
+* Firebase SDK (client-side only for now)
+
+No server functions yet.
 
 ---
 
-## 🗂️ Updated Project Structure (v1)
+## 🗂️ Updated Project Structure (v1.5)
 
 ```txt
 src/
  ├─ app/
- │   ├─ page.tsx                 // Map-based homepage
- │   ├─ layout.tsx
+ │   ├─ page.tsx
+ │   ├─ login/
+ │   │   └─ page.tsx
+ │   ├─ profile/
+ │   │   └─ page.tsx
  │   ├─ university/
- │   │   └─ [slug]/
- │   │       ├─ page.tsx
- │   │       └─ layout.tsx
+ │   │   └─ [slug]/page.tsx
  │
  ├─ components/
- │   ├─ MapView.tsx              // Client-only map
- │   ├─ UniversityMarker.tsx
- │   ├─ UniversityCard.tsx
+ │   ├─ MapView.tsx
  │   ├─ StudentCard.tsx
  │   ├─ IntentToggle.tsx
- │   ├─ StudentListWithFilter.tsx
+ │   ├─ AuthGuard.tsx
+ │
+ ├─ lib/
+ │   ├─ firebase.ts
+ │   ├─ auth.ts
+ │   ├─ user.ts
  │
  ├─ data/
- │   ├─ universities.ts          // now includes lat/lng
- │   ├─ students.ts
+ │   ├─ universities.ts
+ │   ├─ students.ts (fallback/mock)
  │
  ├─ types/
- │   ├─ university.ts            // extended
+ │   ├─ university.ts
  │   ├─ student.ts
+ │   ├─ user.ts
 ```
 
 ---
 
-## 🧠 New Next.js Concepts Practiced in v1
+## 🧠 New Concepts Practiced in v1.5
 
-* Client-only libraries in App Router
-* Dynamic imports (`next/dynamic`)
-* Hydration boundaries
-* Progressive enhancement
-* Data-driven navigation from UI elements
+* Authentication flow
+* Persistent user state
+* Firestore document structure
+* Client SDK integration
+* Protected routes
+* Async UI state handling
+* Hybrid mock + real data architecture
 
 ---
 
-## 🔮 What Comes After v1 (Not Now)
-
-### v1.5
-
-* Firebase Auth
-* Persist intent
-* Basic profile editing
+## 🔮 Future Direction (After v1.5)
 
 ### v2
 
-* Freedom Wall (Realtime)
-* Moderation
-* Analytics
+* Freedom Wall (Realtime feed)
+* Anonymous posting system
+* Moderation tools
+* Role system (admin/student)
+
+### v3+
+
+* Messaging
+* Notifications
+* Realtime campus activity
+
+Not priorities yet.
 
 ---
 
-## ✅ Success Criteria for v1
+## ✅ Success Criteria for v1.5
 
-UniLink v1 is successful if:
+UniLink v1.5 is successful if:
 
-* Homepage map renders correctly
-* Pins navigate reliably
-* No SSR hydration errors
-* You understand *why* the map must be client-side
+* Users can log in/out reliably
+* Intent persists across sessions
+* Profile edits save correctly
+* No auth-state UI confusion
+* You understand how frontend talks to backend
+
+Understanding > polish.
+
+---
+
+## 🧠 Philosophy Reminder
+
+UniLink is still a **learning project**.
+
+You are not building a startup yet.
+You are building skill.
+
+Every feature must answer:
+
+> “What am I learning from this?”
+
+If the answer is unclear → don’t add it.
 
 ---

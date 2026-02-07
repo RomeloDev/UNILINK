@@ -23,7 +23,12 @@ export default function StudentListWithFilter({ students }: Props) {
 
     return (
         <div className="space-y-4">
-            <IntentToggle onChange={setFilter} />
+            <div className="space-y-1">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    Filter by intent
+                </p>
+                <IntentToggle onChange={setFilter} />
+            </div>
             {isEmpty ? (
             <p className="text-sm text-slate-600">
                 No students match this intent.

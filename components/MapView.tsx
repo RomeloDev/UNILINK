@@ -55,7 +55,7 @@ export default function MapView({ universities }: Props) {
     const zoom = Number(search.get("zoom")) || 6;
 
     return (
-        <div className="h-160 w-full rounded-lg overflow-hidden border">
+        <div className="h-[420px] w-full overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-950/40 shadow-[0_0_24px_rgba(56,189,248,0.08)]">
             <MapContainer center={[lat, lng]} zoom={zoom} className="h-full w-full">
                 <TileLayer 
                     attribution="&copy; OpenStreetMap contributors"
