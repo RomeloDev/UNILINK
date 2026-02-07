@@ -14,6 +14,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: uni ? `UniLink | ${uni.name}` : "UniLink | Unknown University" };
 }
 
+export function generateStaticParams() {
+  return universities.map((u) => ({ slug: u.slug }));
+}
+  
 export default async function UniversityLobby({ params }: PageProps) {
   const { slug } = await params;
   const campusStudents = students.filter((s) => s.universitySlug === slug);

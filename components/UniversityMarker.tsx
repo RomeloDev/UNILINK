@@ -4,6 +4,7 @@ import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import type { University } from "@/types/university";
 import L from "leaflet";
+import { useRouter } from "next/navigation";
 
 type Props = { university: University };
 
@@ -15,7 +16,13 @@ const markerIcon = new L.Icon({
 });
 
 export default function UniversityMarker({ university }: Props) {
+    const router = useRouter();
+
     return (
+        //Add an event handler to the marker if popup is not fancy
+        /* here's the sample code: eventHandlers={{
+            click: () => router.push(`/university/${university.slug}`),
+        }} */
         <Marker position={[university.lat, university.lng]} icon={markerIcon}>
             <Popup>
                 <div className="space-y-1">

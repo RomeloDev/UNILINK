@@ -7,11 +7,8 @@ import type { University } from "@/types/university";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import { universities } from "@/data/universities";
 
-type Props = {
-    universities: University[];
-}
+type Props = { universities: University[] };
 
 const MapStateSync = () => {
     const router = useRouter();
@@ -35,8 +32,7 @@ const MapStateSync = () => {
     return null;
 }
 
-const FitToMarkers = ({universities}: { universities: University[]}) =>
-{
+const FitToMarkers = ({universities}: { universities: University[]}) =>{
     const map = useMap();
     const search = useSearchParams();
 
@@ -59,7 +55,7 @@ export default function MapView({ universities }: Props) {
     const zoom = Number(search.get("zoom")) || 6;
 
     return (
-        <div className="h-165 w-full rounded-lg overflow-hidden border">
+        <div className="h-160 w-full rounded-lg overflow-hidden border">
             <MapContainer center={[lat, lng]} zoom={zoom} className="h-full w-full">
                 <TileLayer 
                     attribution="&copy; OpenStreetMap contributors"

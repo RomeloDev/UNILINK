@@ -24,5 +24,13 @@ export const students: Student[] = [
         year: 1,
         intent: "social",
         universitySlug: "bisu-balilihan",
+    },
+    {
+        id: "s4",
+        name: "Carlos Mendoza",
+        major: "Engineering",
+        year: 4,
+        intent: "study",
+        universitySlug: "up-cebu",
     }
 ]
